@@ -12,19 +12,16 @@ namespace wordCount
     {
         static void Main(string[] args)
         {
-            string path = @"F:\SoftWork\WordCount\201731092120\wordCount\hamlet.txt";
+           
+
+            //string path = @"F:\SoftWork\WordCount\201731092120\wordCount\hamlet.txt";
+            string path = Console.ReadLine();
             string text = ReadFile(path).ToLower();
-            Console.Write("characters:");
-            Console.Write(CountChars(text));
-            Console.Write("\n");
+            Console.WriteLine("characters:{0}", CountChars(text));
 
-            Console.Write("lines:");
-            Console.Write(CountLines(path));
-            Console.Write("\n");
+            Console.WriteLine("lines:{0}", CountLines(path));
 
-            Console.Write("words:");
-            Console.Write(CountWords(path));
-            Console.Write("\n");
+            Console.WriteLine("words: {0}", CountWords(path));
 
             CoutWords(text);
 
@@ -138,16 +135,38 @@ namespace wordCount
             
             Dictionary<string, int> dicDesc = frequencies.OrderByDescending(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
 
-                foreach (KeyValuePair<string, int> k in dicDesc.Take(10))
-                {
+            foreach (KeyValuePair<string, int> k in dicDesc.Take(10))
+            {
 
-                    Console.WriteLine(k.Key + ":" + k.Value);
-                }
+                Console.WriteLine(k.Key + ":" + k.Value);
+            }
 
             return frequencies;
 
         }
 
+        //创建一个subject.txt文件，使得我们出的题能够写入文件中保存
+        public static void CreateFile(string str)
+        {
+            try
+            {
+
+                //创建文件流对象，如果文件不存在，则创建subject.txt 文件,并且可以对文件进行追加操作
+                string path = @"F:\First Test\AchaoCalculator\Cherish599\ConsoleCalculator\ConsoleCalculator\bin\Debug\subject.txt";
+                StreamWriter sw = new StreamWriter(path, true);
+
+                sw.WriteLine(str);
+                sw.Close();
+
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("文件操作异常");
+                Console.WriteLine(ex.ToString());
+                Console.ReadKey();
+                return;
+            }
+        }
 
     }
 }
