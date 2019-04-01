@@ -80,9 +80,12 @@ namespace main
             {
                 Console.WriteLine("参数错误！");
             }
-            sw.Flush();
-            sw.Close();
-            Console.WriteLine("以上均已写入文件！");
+            if (sw != null)
+            {
+                sw.Flush();
+                sw.Close();
+            }
+            //Console.WriteLine("以上均已写入文件！");
         }
     }
 }

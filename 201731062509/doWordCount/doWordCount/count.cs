@@ -15,6 +15,6 @@ namespace doWordCount
 
         Dictionary<string, int> SortDictionary_Desc(Dictionary<string, int> dic);//将字母按频数降序排序
 
-        void WriteToTxt(string path,string outPath);
+        void WriteToTxt(string path,string outPath);//将结果写入文件
     };
 }
