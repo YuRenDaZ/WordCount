@@ -1,0 +1,14 @@
+E:\博客\201731062509\WordCount\201731062509\doWordCount\doWordCount\obj\Debug\doWordCount.csprojAssemblyReference.cache
+E:\博客\201731062509\WordCount\201731062509\doWordCount\doWordCount\obj\Debug\doWordCount.csproj.CoreCompileInputs.cache
+E:\博客\201731062509\WordCount\201731062509\doWordCount\doWordCount\bin\Debug\doWordCount.exe.config
+E:\博客\201731062509\WordCount\201731062509\doWordCount\doWordCount\bin\Debug\doWordCount.exe
+E:\博客\201731062509\WordCount\201731062509\doWordCount\doWordCount\bin\Debug\doWordCount.pdb
+E:\博客\201731062509\WordCount\201731062509\doWordCount\doWordCount\obj\Debug\doWordCount.exe
+E:\博客\201731062509\WordCount\201731062509\doWordCount\doWordCount\obj\Debug\doWordCount.pdb
+C:\Users\19334\Desktop\doWordCount\doWordCount\bin\Debug\doWordCount.exe.config
+C:\Users\19334\Desktop\doWordCount\doWordCount\bin\Debug\doWordCount.exe
+C:\Users\19334\Desktop\doWordCount\doWordCount\bin\Debug\doWordCount.pdb
+C:\Users\19334\Desktop\doWordCount\doWordCount\obj\Debug\doWordCount.csprojAssemblyReference.cache
+C:\Users\19334\Desktop\doWordCount\doWordCount\obj\Debug\doWordCount.csproj.CoreCompileInputs.cache
+C:\Users\19334\Desktop\doWordCount\doWordCount\obj\Debug\doWordCount.exe
+C:\Users\19334\Desktop\doWordCount\doWordCount\obj\Debug\doWordCount.pdb
