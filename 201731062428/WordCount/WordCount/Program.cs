@@ -88,12 +88,12 @@ namespace wordCount
     {       
         public static void Main(string[] args)
         {
+            Console.WriteLine("请输入文件路径：");
             string INfile = Console.ReadLine();
             FileInfo file = new FileInfo(@INfile);
             StreamReader sw = file.OpenText();
             List<string> test = new List<string>();
             string str = sw.ReadToEnd();
-
             sw.Close();
             S s = new S();
             s.Countwords(str, test);
