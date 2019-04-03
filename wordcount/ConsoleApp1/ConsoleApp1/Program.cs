@@ -92,31 +92,7 @@ namespace ConsoleApp2
                 }
             }
 
-            //统计词组词频数
-            /*
-            public static  Dictionary<string, int> getArrayCount()
-            {
-             for (int i = 0; i < s.Length; i++)
-                {
-                    if (tword.ContainsKey(s[i]))
-                    {
-                        
-                        tword[s[i]]++;
-                    }
-                    else
-                    {
-                        if(s[i].Length>3 )
-                        {    wsaw++;
-                              tword[s[i]] = 1;
-                        }
-                               
-                    }
-                }
-
-
-
-
-}*/
+          
 
            
             
