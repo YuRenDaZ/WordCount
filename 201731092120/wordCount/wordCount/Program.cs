@@ -8,27 +8,64 @@ using System.Text.RegularExpressions;
 
 namespace wordCount
 {
+    interface library
+    {
+        string ReadFile(string path);   //用于打开文件
+        int CountChars(string text);    //用于统计文档中的字符个数
+        int CountLines(string text);    //用于统计文档行数
+        int CountWords(string Text);    //用于统计文档中单词的个数
+        Dictionary<string, int> Countphrase(string text, int n);    //用于统计文档中的短语的频率
+        Dictionary<string, int> CoutWords(string text, int n);      //用于统计文档中的单词的频率
+        void WreteFile(string path);    //用于创建一个文件，将统计结果保存在文件中
+
+    }
+
     class Program
     {
-        static void Main(string[] args)
+        
+        public static void Main(string[] args)
         {
-           
+            Statistics statistics = new Statistics();
+            string text = "";
+            string path = "";
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == "-i")
+                {
+                    path = args[i + 1];
+                    text = statistics.ReadFile(path).ToLower();
+                }
+            }
+            if (text == "")
+            {
+                Console.WriteLine("未输入文本信息！");
+                return;
+            }
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == "-m")
+                {
+                    statistics.Countphrase(text, int.Parse(args[i + 1]));
+                }
+                if (args[i] == "-n")
+                {
+                    statistics.CoutWords(text, int.Parse(args[i + 1]));
+                }
+            }
 
-            //string path = @"F:\SoftWork\WordCount\201731092120\wordCount\hamlet.txt";
-            string path = Console.ReadLine();
-            string text = ReadFile(path).ToLower();
-            Console.WriteLine("characters:{0}", CountChars(text));
-
-            Console.WriteLine("lines:{0}", CountLines(path));
-
-            Console.WriteLine("words: {0}", CountWords(path));
-
-            CoutWords(text);
-
-            Console.ReadKey();
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == "-o")
+                {
+                    statistics.WreteFile(args[i + 1]);
+                }
+            }
         }
-
-        public static string ReadFile(string path)
+    }
+    class Statistics : library
+    {
+        public  StringBuilder sb = new StringBuilder();   //用于存储控制台输出，输入到文件
+        public string ReadFile(string path)
         {
             string text = "";
             try
@@ -46,10 +83,10 @@ namespace wordCount
                 Console.WriteLine(ex.ToString()); //输出异常原因
                 return text;
             }
-            
+
         }
 
-        public static int CountChars(string text)
+        public int CountChars(string text)
         {
             int count = 0;
             foreach (var item in text)
@@ -60,24 +97,28 @@ namespace wordCount
             return count;
         }
 
-        public static int CountLines(string path)
+        public  int CountLines(string text)
         {
-            FileStream aFile = new FileStream(path, FileMode.Open);
-            StreamReader sr = new StreamReader(aFile);
             int lines = 0;
-            var ls = "";
-            while ((ls = sr.ReadLine()) != null)
+            bool flg = true;
+            foreach (var item in text)
             {
-                lines++;
+                if (item == '\n')
+                {
+                    if (!flg)
+                        lines++;
+                    flg = true;
+                }
+                else
+                    flg = false;
+
             }
-            sr.Close();
             return lines;
         }
 
-        public static int CountWords(string path)
+        public  int CountWords(string Text)
         {
 
-            string Text = ReadFile(path);
             string text = Text.ToLower();
             int length = 0;
 
@@ -86,29 +127,86 @@ namespace wordCount
                 text = text.Replace(a.ToString(), "");
             }
             string[] texts = text.Split(' ');
-            foreach(var word in texts)
+            foreach (var word in texts)
             {
-                foreach(var w in word)
+                foreach (var w in word)
                 {
-                    if(w>=97&&w<=122)
+                    if (w >= 97 && w <= 122)
                     {
                         break;
                     }
-                   
+
                 }
+
                 if (word.Length >= 4)
                     length++;
-
             }
             return length;
 
         }
 
-        static Dictionary<string, int> CoutWords(string text)
+        //统计词组长度
+        public Dictionary<string, int> Countphrase(string text, int n)
+        {
+            int sumCount = 0;     //统计单词个数
+            Console.WriteLine("characters:{0}", CountChars(text));
+            sb.Append(CountChars(text));
+            Console.WriteLine("words: {0}", CountWords(text));
+            sb.Append(CountWords(text));
+            Console.WriteLine("lines:{0}", CountLines(text));
+            sb.Append(CountLines(text));
+            Dictionary<string, int> frequencies = new Dictionary<string, int>();
+            string[] words = Regex.Split(text.ToLower(), @"\W+");
+
+            //统计有词组之后的数组
+            String[] phrase = new string[words.Length - n];
+
+            //用于将切分过的字符串进行组合，变成词组  然后存入另外一个数组中                                                 
+            for (int i = 0; i < words.Length - n; i++)
+            {
+                StringBuilder ph = new StringBuilder();
+                for (int j = i; j < n + i; j++)
+                {
+                    if (words[j].Equals(" "))
+                    {
+                        j--;
+                        continue;
+                    }
+                    ph.Append(words[j] + " ");
+                }
+                phrase[i] = ph.ToString();
+            }
+
+            sumCount = phrase.Length;
+            //统计的关键代码，若map中存在该单词则数量加1，反之存入map
+            for (int i = 0; i < phrase.Length; i++)
+            {
+                if (frequencies.ContainsKey(phrase[i]))
+                {
+                    int count = (int)frequencies[phrase[i]];
+                    count++;
+                    frequencies[phrase[i]] = count;
+                }
+                else
+                {
+                    frequencies.Add(phrase[i], 1);
+                }
+            }
+            foreach (KeyValuePair<string, int> k in frequencies)
+            {
+
+                Console.WriteLine(k.Key + ":" + k.Value);
+                sb.Append(k.Key + ":" + k.Value);
+                sb.Append("\n");
+            }
+            return frequencies;
+        }
+            
+        public Dictionary<string, int> CoutWords(string text, int n)
         {
             Dictionary<string, int> frequencies = new Dictionary<string, int>();
 
-            string[] words = Regex.Split(text, @"\W+");
+            string[] words = Regex.Split(text.ToLower(), @"\W+");
 
             foreach (string word in words)
             {
@@ -121,43 +219,43 @@ namespace wordCount
                     frequencies[word] = 1;
                 }
             }
-         
+
             foreach (KeyValuePair<string, int> entry in frequencies)
             {
-                
+
                 string word = entry.Key;
                 int frequency = entry.Value;
-                
+
             }
 
-
             //对值进行排序
-            
             Dictionary<string, int> dicDesc = frequencies.OrderByDescending(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
 
-            foreach (KeyValuePair<string, int> k in dicDesc.Take(10))
+            foreach (KeyValuePair<string, int> k in dicDesc.Take(n))
             {
 
                 Console.WriteLine(k.Key + ":" + k.Value);
+                sb.Append(k.Key + ":" + k.Value);
+                sb.Append("\n");
             }
-
             return frequencies;
-
         }
 
-        //创建一个subject.txt文件，使得我们出的题能够写入文件中保存
-        public static void CreateFile(string str)
+        //创建一个.txt文件,并将统计信息输入文件中
+
+        public  void WreteFile(string path)
         {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
             try
             {
-
-                //创建文件流对象，如果文件不存在，则创建subject.txt 文件,并且可以对文件进行追加操作
-                string path = @"F:\First Test\AchaoCalculator\Cherish599\ConsoleCalculator\ConsoleCalculator\bin\Debug\subject.txt";
                 StreamWriter sw = new StreamWriter(path, true);
 
-                sw.WriteLine(str);
+                sw.WriteLine(sb.ToString());
+                sw.WriteLine("\n");
                 sw.Close();
-
             }
             catch (IOException ex)
             {
@@ -167,6 +265,5 @@ namespace wordCount
                 return;
             }
         }
-
     }
 }
