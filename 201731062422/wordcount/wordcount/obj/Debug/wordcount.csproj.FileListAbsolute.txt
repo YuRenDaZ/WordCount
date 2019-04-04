@@ -1,0 +1,8 @@
+c:\users\ddn\documents\visual studio 2013\Projects\wordcount\wordcount\bin\Debug\wordcount.exe.config
+c:\users\ddn\documents\visual studio 2013\Projects\wordcount\wordcount\bin\Debug\wordcount.exe
+c:\users\ddn\documents\visual studio 2013\Projects\wordcount\wordcount\bin\Debug\wordcount.pdb
+c:\users\ddn\documents\visual studio 2013\Projects\wordcount\wordcount\obj\Debug\wordcount.csprojResolveAssemblyReference.cache
+c:\users\ddn\documents\visual studio 2013\Projects\wordcount\wordcount\obj\Debug\wordcount.exe
+c:\users\ddn\documents\visual studio 2013\Projects\wordcount\wordcount\obj\Debug\wordcount.pdb
+C:\Users\DDN\Documents\Visual Studio 2013\Projects\wordcount\wordcount\bin\Debug\wordcount.exe.CodeAnalysisLog.xml
+C:\Users\DDN\Documents\Visual Studio 2013\Projects\wordcount\wordcount\bin\Debug\wordcount.exe.lastcodeanalysissucceeded
