@@ -1,8 +1,13 @@
 Characters : 547097
-Words : 7754
+Words : 101538
 Lines : 2100
-the:6650
+the:6651
 and:3787
 to:2863
-he:2448
-of:2384
+he:2449
+of:2388
+a:2005
+was:1819
+his:1755
+in:1416
+that:1411
