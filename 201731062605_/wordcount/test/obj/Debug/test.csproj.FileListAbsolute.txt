@@ -1,0 +1,6 @@
+D:\angel C\test\test\bin\Debug\test.exe
+D:\angel C\test\test\bin\Debug\test.pdb
+D:\angel C\test\test\obj\Debug\test.csprojAssemblyReference.cache
+D:\angel C\test\test\obj\Debug\test.csproj.CoreCompileInputs.cache
+D:\angel C\test\test\obj\Debug\test.exe
+D:\angel C\test\test\obj\Debug\test.pdb
