@@ -1,0 +1,8 @@
+Characters : 547097
+Words : 7754
+Lines : 2100
+the:6650
+and:3787
+to:2863
+he:2448
+of:2384
