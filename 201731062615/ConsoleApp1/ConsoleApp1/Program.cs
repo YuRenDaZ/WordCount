@@ -57,7 +57,8 @@ namespace wordCount
          
 
         }
-        //统计单词中的频率最高的10个单词
+        //统计单词中的频率最高的10个单词,
+        //扩展功能:能统计文件夹中指定长度的词组的词频,能输出用户指定的前n多的单词与其数量
         public void count3(string path)
         {
             Dictionary<string, int> dic = new Dictionary<string, int>();
@@ -110,7 +111,32 @@ namespace wordCount
                 
                
             }
-       
+            Console.WriteLine("统计文件夹中指定长度的词组:");
+            int n1 =int.Parse( Console.ReadLine());
+            foreach(KeyValuePair<string,int> h in dic)
+            {
+                if(n1==h.Key.Length)
+                {
+                    Console.WriteLine("单词： " + h.Key + "单词数:" + h.Value);
+                }
+            }
+
+            Console.WriteLine("输出用户指定的前n多的单词与其数量:");
+            int n = int.Parse(Console.ReadLine());
+            int sum2 = 0;
+            foreach (KeyValuePair<string, int> k in dicdesc)
+            {
+
+                if (sum2 <= n)
+                {
+                    Console.WriteLine("单词:" + k.Key + "单词数:" + k.Value);
+                    sum2++;
+                }
+                else
+                    break;
+
+
+            }
 
         }
         //对单词进行排序
@@ -146,8 +172,6 @@ namespace wordCount
             }
             s.Close();
         }
-
-        
         static void Main(string[] args)
         {
             string path = Console.ReadLine();
