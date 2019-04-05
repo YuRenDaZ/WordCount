@@ -21,6 +21,7 @@ namespace WordCount.Tests
             list.Add("d");
             list.Add("e");
             Assert.IsTrue(SplitString.storestring("a b c d e"," ").All(list.Contains)&& SplitString.storestring("a b c d e", " ").Count==list.Count);
+            Assert.IsFalse(SplitString.storestring("a b c d e", " ").All(list.Contains) && SplitString.storestring("a b c d e", " ").Count != list.Count);
         }
     }
 }

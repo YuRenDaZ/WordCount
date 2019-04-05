@@ -15,6 +15,7 @@ namespace WordCount.Tests
         public void TransFormTest()
         {
             Assert.IsTrue(Transform.TransForm("File FILE 123FILE")=="file file 123file");
+            Assert.IsFalse(Transform.TransForm("File FILE 123FILE") != "file file 123file");
         }
     }
 }

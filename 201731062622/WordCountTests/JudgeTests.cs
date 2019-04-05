@@ -16,6 +16,8 @@ namespace WordCount.Tests
         {
             Assert.IsTrue(Judge.JudgeWord("123file")=="");
             Assert.IsTrue(Judge.JudgeWord("file") == "file");
+            //异常单元测试
+            Assert.IsFalse(Judge.JudgeWord("file") != "file");
         }
     }
 }

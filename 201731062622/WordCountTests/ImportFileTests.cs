@@ -15,6 +15,7 @@ namespace WordCount.Tests
         public void ImportMyFileTest()
         {
             Assert.IsTrue(ImportFile.ImportMyFile("test.txt")== "This is a file that is used to test"&&ImportFile.FileLines("test.txt")==1);
+            Assert.IsFalse(ImportFile.ImportMyFile("test.txt") != "This is a file that is used to test" && ImportFile.FileLines("test.txt") != 1);
         }
     }
 }

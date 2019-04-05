@@ -35,6 +35,7 @@ namespace WordCount.Tests
                 res++;
             }
             Assert.IsTrue(flag == 0);
+            Assert.IsFalse(flag != 0);
             
         }
 
@@ -63,6 +64,7 @@ namespace WordCount.Tests
                 tempNum++;
             }
             Assert.IsTrue(flag == 0);
+            Assert.IsFalse(flag != 0);
         }
 
         [TestMethod()]
@@ -90,6 +92,7 @@ namespace WordCount.Tests
                 tempNum++;
             }
             Assert.IsTrue(flag == 0);
+            Assert.IsFalse(flag != 0);
         }
     }
 }
