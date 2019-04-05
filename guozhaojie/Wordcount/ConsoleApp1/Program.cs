@@ -10,19 +10,22 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            string filepath = args[0];
+            string filepath = args[0];//从cmd中读取文档路径
             Program a = new Program();
             Library b = new Library();
             if (System.IO.File.Exists(filepath))
             {
                 System.IO.StreamReader file = new System.IO.StreamReader(filepath);
-                char[] filedata = file.ReadToEnd().ToCharArray();
+                char[] filedata = file.ReadToEnd().ToCharArray();//将文档中的所有字符储存在字符数组中
                 file.Close();
                 file.Dispose();
+                //调用Library类中的函数计算需要得到的各个属性
                 string c = b.countchar(filedata);
-                string w = b.countword(filedata);
+                string w = "words:" + b.countword(filedata).ToString();
+                Console.WriteLine("words:{0}", b.countword(filedata));
                 string l = b.countline(filedata);
                 string f = b.countfre(filedata);
+                //调用保存数据的函数将结果保存在文档中
                 a.savedata(c, w, l, f, "Wordcount");
                 Console.WriteLine("以上数据已保存在文档目录下Save文件夹中的Wordcount文档中!");
             }
@@ -46,14 +49,14 @@ namespace ConsoleApp1
     }
     public class Library
     {
-        public string countchar(char[] filedata)
+        public string countchar(char[] filedata)//计算文档中的字符总数
         {
             string countchar = "characters:" + filedata.Length;
             Console.WriteLine(countchar);
             return countchar;
         }
 
-        public string countword(char[] filedata)
+        public int countword(char[] filedata)//计算文档中的单词总数
         {
             int count = 0, letter = 0;
             for (int n = 0; n < filedata.Length; n++)
@@ -62,7 +65,7 @@ namespace ConsoleApp1
                     letter++;
                 else if (filedata[n] == 32)
                 {
-                    if (letter >= 4)
+                    if (letter >= 4)//满足“连续4个字母”才能被计为一个单词
                     {
                         count++;
                         letter = 0;
@@ -71,28 +74,26 @@ namespace ConsoleApp1
                 }
                 else letter = 0;
             }
-            string countword = "words:" + count;
-            Console.WriteLine(countword);
-            return countword;
+            return count;
         }
 
-        public string countline(char[] filedata)
+        public string countline(char[] filedata)//计算文档的总行数
         {
             int count = 0;
             for (int n = 0; n < filedata.Length; n++)
             {
                 if (filedata[n] == 10) count++;
             }
-            count++;
+            count++;//最后一行没有换行符故总行数需+1
             string countline = "lines:" + count;
             Console.WriteLine(countline);
             return countline;
         }
 
-        public string countfre(char[] filedata)
+        public string countfre(char[] filedata)//计算文档中单词的出现频数
         {
-            int letter = 0, count = 0, t;
-            string[] word = new string[words(filedata)];
+            int letter = 0, count = 0, t, len = countword(filedata);
+            string[] word = new string[len];
             for (int n = 0; n < filedata.Length; n++)
             {
                 if ((filedata[n] >= 97 && filedata[n] <= 122) || (filedata[n] >= 65 && filedata[n] <= 90))
@@ -118,16 +119,16 @@ namespace ConsoleApp1
                 }
                 else letter = 0;
             }
-            for (int i = 0; i < words(filedata); i++)
+            for (int i = 0; i < len; i++)
                 word[i] = word[i].ToLower();
-            string[] word1 = new string[words(filedata)];
-            int[] fre = new int[words(filedata)];
-            for (int i = 0; i < words(filedata); i++)
+            string[] word1 = new string[len];
+            int[] fre = new int[len];
+            for (int i = 0; i < len; i++)
                 fre[i] = 0;
             t = 0;
-            for (int i = 0; i < words(filedata); i++)
+            for (int i = 0; i < len; i++)
             {
-                for (int j = 0; j < words(filedata); j++)
+                for (int j = 0; j < len; j++)
                 {
                     if (word[i] == word1[j])
                     {
@@ -140,11 +141,11 @@ namespace ConsoleApp1
                 t++;
             }
 
-            int a, b;
+            int a, b;//按照频数大小从大到小进行排序
             string temp1;
             int temp2;
-            for (a = 0; a < words(filedata); a++)
-                for (b = a + 1; b < words(filedata); b++)
+            for (a = 0; a < len; a++)
+                for (b = a + 1; b < len; b++)
                 {
                     if (fre[a] < fre[b])
                     {
@@ -156,6 +157,7 @@ namespace ConsoleApp1
                         fre[b] = temp2;
                     }
                 }
+            //取得频数最高的10个单词的字符串和频数
             int[] maxf = new int[10];
             string[] maxw = new string[10];
             for (a = 0; a < 10; a++)
@@ -163,7 +165,7 @@ namespace ConsoleApp1
                 maxf[a] = fre[a];
                 maxw[a] = word1[a];
             }
-            for (a = 0; a < 10; a++)
+            for (a = 0; a < 10; a++)//对于频数相等的单词按照字典顺序进行排序
                 for (b = a + 1; b < 10; b++)
                 {
                     if (fre[a] == fre[b] && word1[a] != null && word1[b] != null)
@@ -184,27 +186,6 @@ namespace ConsoleApp1
                 result = result + r + " ";
             }
             return result;
-        }
-
-        int words(char[] filedata)
-        {
-            int count = 0, letter = 0;
-            for (int n = 0; n < filedata.Length; n++)
-            {
-                if ((filedata[n] >= 65 && filedata[n] <= 90) || (filedata[n] >= 97 && filedata[n] <= 122))
-                    letter++;
-                else if (filedata[n] == 32)
-                {
-                    if (letter >= 4)
-                    {
-                        count++;
-                        letter = 0;
-                    }
-                    else letter = 0;
-                }
-                else letter = 0;
-            }
-            return count;
         }
     }
 }
