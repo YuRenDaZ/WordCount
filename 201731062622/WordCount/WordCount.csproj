@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFunction.cs" />
     <Compile Include="Count.cs" />
     <Compile Include="ImportFile.cs" />
     <Compile Include="Judge.cs" />
